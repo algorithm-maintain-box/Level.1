@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+char* solution(int a, int b) {
+    // 리턴할 값은 메모리를 동적 할당해주세요.
+    char* answer = (char*)malloc(4);
+    
+    int total_days = 0;//1월 1일로 부터 지난 날짜
+    int index_of_days = 0; //이곳에는 1월1일 부터 지난 날짜를 7로 나눈 나머지를 저장
+    
+    if(a == 1){
+        total_days = b - 1;
+    }else if(a == 2){
+        total_days = 31 + b - 1;
+    }
+    else
+    {
+        //아래 월의 개수는 지금 입력한 월 이전것만 세는 것
+        int num_of_month_30 = (a-1)/2  - 1; //30일인 짝수 달의 개수 (2월은 빼야됨) 
+        int num_of_month_29 = 1; //2월의 개수 
+        int num_of_month_31 = (a-1) - (a-1)/2;
+        
+        total_days = b + (num_of_month_30)*30 + (num_of_month_29)*29 + (num_of_month_31)*31 - 1;  
+    }
+    
+    index_of_days = total_days % 7; 
+    
+    switch(index_of_days){
+        case 1:
+            answer = "SAT";
+            break;
+        case 2:
+            answer = "SUN";
+            break;
+         case 3:
+            answer = "MON";
+            break;
+         case 4:
+            answer = "TUE";
+            break;
+         case 5:
+            answer = "WED";
+            break;
+         case 6:
+            answer = "THU";
+            break;
+         case 0:
+            answer = "FRI";
+            break;       
+    }
+    
+    return answer;
+}
