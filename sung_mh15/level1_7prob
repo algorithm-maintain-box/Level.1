@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
+
+long long solution(long long n) {
+	long long answer = 0;
+
+	long long temp = sqrt(n);//여기 int temp로 선언해서 오류 계속뜸!!!
+
+	if (temp * temp == n) {
+		answer = temp;
+	}
+	else {
+		return -1;
+	}
+
+	
+
+	answer += 1;
+	answer *= answer;
+
+	return answer;
+}
+
+int main(void) {
+	printf("%d", solution(121));
+
+	return 0;
+}
