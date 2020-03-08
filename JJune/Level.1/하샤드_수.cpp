@@ -8,9 +8,9 @@ bool solution(int x)
     uint32_t res = 0;
     string input {to_string(x)};
 
-    for (auto it : input)
+    for (auto const iter : input)
     {
-        res += atoi(&it);
+        res += atoi(&iter);
     }
 
     return x % res ? false : true;

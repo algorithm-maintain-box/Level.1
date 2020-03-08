@@ -5,14 +5,6 @@ using namespace std;
 
 double solution(vector<int> arr)
 {
-    // double res = 0;
-    // uint16_t size = arr.size();
-
-    // for (auto it : arr)
-    // {
-    //     res += it / static_cast<double>(size);
-    // }
-
     double res = 0;
 
     for (auto it : arr)
