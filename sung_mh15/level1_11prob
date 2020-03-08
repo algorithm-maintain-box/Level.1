@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+//
+//bool solution(int x) {
+//	bool answer = true;
+//
+//	int origin_x = x;
+//	int sum_x = 0;
+//
+//	do {  //그냥 while문으로 작성하기!!!
+//		sum_x += origin_x % 10;
+//	} while ((origin_x /= 10)!=0);
+//
+//	if (x % sum_x != 0)
+//		answer = false;
+//
+//	return answer;
+//}
+
+
+bool solution(int x) {
+	bool answer = true;
+
+	int a = 0;
+	int b = x;
+
+	while (b != 0) {
+		a += b % 10;
+		b /= 10;
+	}
+
+	if (x%a == 0)
+		answer = true;
+	else
+		answer = false;
+
+	
+	return answer;
+}
