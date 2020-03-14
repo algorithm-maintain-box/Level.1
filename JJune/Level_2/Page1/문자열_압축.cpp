@@ -7,34 +7,57 @@ using namespace std;
 int solution(string s)
 {
     stack<string> check{};
-    uint64_t res = 0;
-    for (auto i = 1; i <= s.size(); i++)
+    uint64_t min = s.size();
+
+    for (auto size = 1; size <= s.size(); size++)
     {
-        bool flag = false;
-        for (auto k = 0; k < s.size();)
+        uint64_t res = 0;
+        int cnt = 0;
+
+        for (auto i = 0; i < s.size();)
         {
-            auto str = s.substr(k, i);
-            if (check.top() == str)
+            auto str = s.substr(i, size);
+            if (!check.empty() && check.top() == str)
             {
-                flag = true;
+                cnt++;
+                i += size;
                 continue;
             }
 
-            if (flag)
+            if (cnt)
             {
-                flag = false;
-                res++;
+                res += check.top().size();
+                check.pop();
+                res += std::to_string(++cnt).size();
+                cnt = 0;
             }
 
-            check.push(s.substr(k, i));
-            k = k + i;
+            check.push(str);
+            i += size;
         }
+
+        while (!check.empty())
+        {
+            if (cnt)
+            {
+                res += std::to_string(++cnt).size();
+                cnt = 0;
+            }
+
+            res += check.top().size();
+            check.pop();
+        }
+
+        min = std::min(min, res);
     }
+
+    return min;
 }
 
 #include <iostream>
 int main()
 {
+    std::cout << "Out : " << solution("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") << std::endl;
     std::cout << "Out : " << solution("aabbaccc") << std::endl;
     std::cout << "Out : " << solution("ababcdcdababcdcd") << std::endl;
     std::cout << "Out : " << solution("abcabcdede") << std::endl;
