@@ -43,9 +43,9 @@ int solution(vector<vector<int>> baseball)
                 vec.erase(vec.begin() + i);
             }
         }
-
-        return vec.size();
     }
+
+    return vec.size();
 }
 
 #include <iostream>
