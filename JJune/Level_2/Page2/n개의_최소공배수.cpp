@@ -3,44 +3,63 @@
 
 using namespace std;
 
+int gcd(int x, int y)
+{
+    return x % y == 0 ? y : gcd(y, x % y);
+}
+
+int lcm(int x, int y)
+{
+    return (x * y) / gcd(x, y);
+}
+
 int solution(vector<int> arr)
 {
-    uint8_t max = 0;
 
-    for (auto &iter : arr)
+    int result = arr[0];
+    for (auto i = 1; i < arr.size(); i++)
     {
-        if (max < iter)
-        {
-            max = iter;
-        }
+        result = lcm(result, arr[i]);
     }
 
-    uint32_t res = max;
-    while (true)
-    {
-        for (auto i = 0; i < arr.size(); i++)
-        {
-            if (res % arr[i])
-            {
-                break;
-            }
+    return result;
 
-            if (i == (arr.size() - 1))
-            {
-                return res;
-            }
-        }
+    // uint8_t max = 0;
 
-        res++;
-    }
+    // for (auto &iter : arr)
+    // {
+    //     if (max < iter)
+    //     {
+    //         max = iter;
+    //     }
+    // }
 
-    return res;
+    // uint32_t res = max;
+    // while (true)
+    // {
+    //     for (auto i = 0; i < arr.size(); i++)
+    //     {
+    //         if (res % arr[i])
+    //         {
+    //             break;
+    //         }
+
+    //         if (i == (arr.size() - 1))
+    //         {
+    //             return res;
+    //         }
+    //     }
+
+    //     res++;
+    // }
+
+    // return res;
 }
 
 #include <iostream>
 int main()
 {
-    std::cout << "Out : " << solution({2,6,8,14}) << std::endl;
-    std::cout << "Out : " << solution({1,2,3}) << std::endl;
+    std::cout << "Out : " << solution({2, 6, 8, 14}) << std::endl;
+    std::cout << "Out : " << solution({1, 2, 3}) << std::endl;
     return 0;
 }
