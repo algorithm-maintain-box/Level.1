@@ -6,10 +6,9 @@ using namespace std;
 vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2)
 {
     vector<vector<int>> answer;
-    answer.resize(arr2.size());
+    answer.resize(arr1.size());
 
-    // index로 변경해서 다시 풀어볼것
-    for (auto iter : arr1)
+    for (auto j = 0; j < arr1.size(); j++)
     {
         for (auto i = 0; i < arr2[0].size(); i++)
         {
@@ -17,10 +16,9 @@ vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2)
 
             for (auto k = 0; k < arr2.size(); k++)
             {
-                sum += iter[k] * arr2[k][i];
+                sum += arr1[j][k] * arr2[k][i];
             }
-
-            answer[i].push_back(sum);
+            answer[j].push_back(sum);
         }
     }
 
