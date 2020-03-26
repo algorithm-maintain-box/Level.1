@@ -1,64 +1,72 @@
 #include <string>
+#include <vector>
 #include <algorithm>
-#include <unordered_map>
-#include <limits>
+#include <set>
 
 using namespace std;
 
 int solution(string str1, string str2)
 {
-    for (auto i = 0; i < str1.size(); i++)
-    {
-        str1[i] = tolower(str1[i]);
-    }
+    transform(str1.begin(), str1.end(),
+              str1.begin(),
+              ::tolower);
+    transform(str2.begin(), str2.end(),
+              str2.begin(),
+              ::tolower);
 
-    for (auto i = 0; i < str2.size(); i++)
-    {
-        str2[i] = tolower(str2[i]);
-    }
-
-    unordered_map<string, int> str1_map{};
-    for (auto i = 1; i < str1.size(); i++)
-    {
-        if (('a' <= str1[i - 1] && 'z' >= str1[i - 1]) &&
-            ('a' <= str1[i] && 'z' >= str1[i]))
+    auto check = [](string str) {
+        multiset<string> str_set{};
+        for (auto i = 1; i < str.size(); i++)
         {
-            string str{};
-            str += str1[i - 1];
-            str += str1[i];
+            if (isalpha(str[i - 1]) && isalpha(str[i]))
+            {
+                string temp{};
+                temp += str[i - 1];
+                temp += str[i];
 
-            str1_map[str]++;
+                str_set.emplace(temp);
+            }
         }
-    }
 
-    unordered_map<string, int> str2_map {};
-    for (auto i = 1; i < str2.size(); i++)
+        return str_set;
+    };
+
+    multiset<string> str1_set = check(str1);
+    multiset<string> str2_set = check(str2);
+
+    vector<string> union_vec{};
+    set_union(str1_set.begin(),
+              str1_set.end(),
+              str2_set.begin(),
+              str2_set.end(),
+              back_inserter(union_vec));
+
+    vector<string> intersection_vec{};
+    set_intersection(str1_set.begin(),
+                     str1_set.end(),
+                     str2_set.begin(),
+                     str2_set.end(),
+                     back_inserter(intersection_vec));
+
+    double union_size = union_vec.size();
+    double intersection_size = intersection_vec.size();
+
+    int pad = 65536;
+    if (!union_size && !intersection_size)
     {
-        if (('a' <= str2[i - 1] && 'z' >= str2[i - 1]) &&
-            ('a' <= str2[i] && 'z' >= str2[i]))
-        {
-            string str{};
-            str += str2[i - 1];
-            str += str2[i];
-
-            str2_map[str]++;
-        }
+        return pad * 1;
     }
-
-    unordered_map<string, int> same_map{};
-    unordered_map<string, int> min_map{};
-    for (auto iter : str1_map)
+    else if (!intersection_size)
     {
-        same_map[iter.first] = max(iter.second, str2_map[iter.first]);
-        min_map[iter.first] = min(iter.second, str2_map[iter.first]==0?std::numeric_limits<int>::max():str2_map[iter.first]);
+        return pad * 0;
     }
 
-    return 0;
+    return (intersection_size / union_size) * pad;
 }
 
 #include <iostream>
 int main()
 {
-    std::cout << "Out : " << solution("FRANCE", "french") << " / A : 3" << std::endl;
+    std::cout << "Out : " << solution("FRANCE", "french") << " / A : 16384" << std::endl;
     return 0;
 }
