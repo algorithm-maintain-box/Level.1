@@ -1,51 +1,51 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
+
         Solution solution = new Solution();
-        solution.solution(4,4,2,1);
+
+        solution.solution(new String[]{"Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo", "Change uid4567 Ryan",
+        "Leave uid1234"});
+
     }
 
     static class Solution {
-        public String solution(int n, int t, int m, int p) {
-            String answer = ""; String entire = "";
-            StringBuilder sb = new StringBuilder();
-            int idx = p;
-            int value = 0;
-            while(true){
-                sb.append(conveter(n, value));
-                value++;
-                if(sb.length() > t*m)
-                    break;
+        public String[] solution(String[] record) {
+            HashMap<String, String> map = new HashMap<>();
+            int count=0; int idx=0;
+
+            for(int i=0; i<record.length; i++){  // key, value 값 만들기
+                String[] recordSplit = record[i].split(" ");
+                if(!recordSplit[0].equals("Leave")){
+                    map.put(recordSplit[1], recordSplit[2]);
+                }
+
+                if(!recordSplit[0].equals("Change")){
+                    count++;
+                }
             }
-            entire = sb.toString();
-            for(int i=0; i<t; i++){
-                answer = entire.charAt(idx) + answer;
-                idx = idx+m;
+
+            String[] answer = new String[count]; // answer 생성
+
+            for(int j=0; j<record.length; j++){
+                String[] recordSplit = record[j].split(" ");
+                if(recordSplit[0].equals("Enter")){
+                    answer[idx] = map.get(recordSplit[1])+"님이 들어왔습니다.";
+                    idx++;
+                } else if(recordSplit[0].equals("Leave")){
+                    answer[idx] = map.get(recordSplit[1])+"님이 나갔습니다.";
+                    idx++;
+                }
             }
-            System.out.println(answer);
+
             return answer;
         }
-
-    public static String conveter(int n, int value){
-        String result ="";
-        StringBuilder sb = new StringBuilder();
-        while(value != 0){
-
-            if ( (value % n) < 10){ // 나머지 10 이하
-                sb.append((value%n));
-                value = value/n;
-            } else {
-                int alpha = (char) ((value%n) + 55);
-                sb.append(Integer.toString(alpha));
-            }
-            sb.reverse();
-        }
-
-        return sb.toString();
     }
 
 
-}}
+}
