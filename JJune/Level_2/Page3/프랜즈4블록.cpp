@@ -6,6 +6,7 @@ using namespace std;
 
 int solution(int m, int n, vector<string> board)
 {
+    // 좌로 보드를 변경함
     vector<vector<int>> new_board(n);
     for (int i = board.size() - 1; i >= 0; i--)
     {
