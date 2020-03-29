@@ -13,6 +13,7 @@ int solution(string numbers)
         vec.push_back(stoi(string(1, iter)));
     }
 
+    // 가장 큰 값 계산
     sort(vec.begin(),
          vec.end(),
          greater<int>());
@@ -23,6 +24,7 @@ int solution(string numbers)
         max += vec[i] * pow(10, vec.size() - 1 - i);
     }
 
+    // 큰 값까지 모든 케이스 계산
     vector<bool> val_vec{};
     val_vec.emplace_back(false);
     val_vec.emplace_back(false);
@@ -41,6 +43,7 @@ int solution(string numbers)
         val_vec.emplace_back(is_prime);
     }
 
+    // 모든 케이스에서 카드로 구성가능한 소수인지 확인
     int res = 0;
     for (auto i = 2; i <= max; i++)
     {
