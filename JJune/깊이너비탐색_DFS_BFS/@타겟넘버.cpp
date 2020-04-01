@@ -28,6 +28,6 @@ int solution(vector<int> numbers, int target)
 #include <iostream>
 int main()
 {
-    std::cout << "Out : " << solution({1, 1, 1, 1, 1}, 3) << " A : 5" << std::endl;
+    std::cout << "Out : " << solution({1, 1, 1, 1, 1}, 3) << " / A : 5" << std::endl;
     return 0;
 }
