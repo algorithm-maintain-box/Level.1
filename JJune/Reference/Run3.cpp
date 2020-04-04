@@ -1,28 +1,3 @@
-// #include <string>
-// #include <vector>
-// #include <set>
-
-// using namespace std;
-
-// int solution(int number, vector<int> firecracker)
-// {
-//     set<int> st{};
-//     for (auto i = 0; i < firecracker.size(); i++)
-//     {
-//         st.insert(i);
-//     }
-
-//     for (int i = firecracker.size() -1 ; i >= 0; i--)
-//     {
-//         for (auto k = 0; k < firecracker[i]; k++)
-//         {
-//             st.erase(i - k - 1);
-//         }
-//     }
-
-//     return st.size();
-// }
-
 #include <string>
 #include <vector>
 
