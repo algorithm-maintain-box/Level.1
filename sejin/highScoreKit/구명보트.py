@@ -13,6 +13,5 @@ def solution(people, limit):
             
         else:
             last -= 1
-            
     answer = len(people)-cnt
     return answer

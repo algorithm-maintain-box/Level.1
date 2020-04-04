@@ -12,6 +12,7 @@ def operator(numbers,index,target):
             answer += 1
         return
     else:
+        
         operator(numbers, index+1, target)
         numbers[index] *= -1 
         operator(numbers, index+1, target)

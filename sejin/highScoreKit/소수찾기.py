@@ -6,4 +6,5 @@ def solution(numbers):
     tmp -= set(range(0, 2))
     for i in range(2, int(max(tmp) ** 0.5) + 1):
         tmp -= set(range(i * 2, max(tmp) + 1, i))
+        
     return len(tmp)

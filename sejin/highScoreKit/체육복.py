@@ -16,4 +16,5 @@ def solution(n, lost, reserve):
     for i in tmp:
         if i >0:
             answer +=1
+            
     return answer

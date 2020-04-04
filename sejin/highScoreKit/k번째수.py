@@ -4,4 +4,5 @@ def solution(array, commands):
         tmp = array[commands[i][0]-1:commands[i][1]]
         tmp.sort()
         answer.append(tmp[commands[i][2]-1])
+        
     return answer

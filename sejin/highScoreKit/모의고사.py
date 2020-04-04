@@ -12,7 +12,6 @@ def solution(answers):
             score[1] += 1
         if ans == pattern3[idx%len(pattern3)]:
             score[2] += 1
-
     for idx, s in enumerate(score):
         if s == max(score):
             answer.append(idx+1)

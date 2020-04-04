@@ -8,5 +8,6 @@ def solution(number, k):
                 del number[i]
                 cnt += 1
                 break
+                
     answer = "".join(number)
     return answer
